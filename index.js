@@ -102,9 +102,9 @@ app.post('/api/persons', (req, res) => {
 app.use(express.static(path.join(__dirname, 'dist')))
 
 // Fallback only for frontend routes (safe wildcard)
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-})
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+// })
 
 // Start server
 const PORT = process.env.PORT || 3001
