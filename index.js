@@ -105,9 +105,9 @@ app.post('/api/persons', (req, res) => {
 
 // Serve static frontend from Vite build (MUST BE LAST)
 app.use(express.static(path.join(__dirname, 'dist')))
-// app.get('/*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-// })
+app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+})
 
 // Start server
 const PORT = process.env.PORT || 3001
