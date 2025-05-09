@@ -66,14 +66,6 @@ app.post('/api/persons', (req, res) => {
 // Serve static frontend
 app.use(express.static(path.join(__dirname, 'dist')))
 
-// Fallback only for non-API routes
-app.get('/*', (req, res, next) => {
-    if (req.path.startsWith('/api')) {
-        return next()
-    }
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-})
-
 // Start server
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
