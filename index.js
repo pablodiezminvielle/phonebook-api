@@ -67,7 +67,7 @@ app.post('/api/persons', (req, res) => {
 app.use(express.static(path.join(__dirname, 'dist')))
 
 // Fallback only for non-API routes
-app.get('*', (req, res, next) => {
+app.get('/*', (req, res, next) => {
     if (req.path.startsWith('/api')) {
         return next()
     }
