@@ -15,12 +15,6 @@ morgan.token('body', (req) => {
 })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
-// Serve static frontend from Vite build
-app.use(express.static(path.join(__dirname, 'dist')))
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-})
-
 // In-memory data
 let persons = [
     {
@@ -107,6 +101,12 @@ app.post('/api/persons', (req, res) => {
 
     persons = persons.concat(newPerson)
     res.json(newPerson)
+})
+
+// Serve static frontend from Vite build (MUST BE LAST)
+app.use(express.static(path.join(__dirname, 'dist')))
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 })
 
 // Start server
