@@ -39,19 +39,17 @@ let persons = [
     }
 ]
 
-// Info route
+// API routes
 app.get('/info', (req, res) => {
     const total = persons.length
     const date = new Date()
     res.send(`<p>Phonebook has info for ${total} people</p><p>${date}</p>`)
 })
 
-// Get all persons
 app.get('/api/persons', (req, res) => {
     res.json(persons)
 })
 
-// Get person by ID
 app.get('/api/persons/:id', (req, res) => {
     const id = Number(req.params.id)
     const person = persons.find(p => p.id === id)
@@ -63,7 +61,6 @@ app.get('/api/persons/:id', (req, res) => {
     }
 })
 
-// Delete person
 app.delete('/api/persons/:id', (req, res) => {
     const id = Number(req.params.id)
     persons = persons.filter(p => p.id !== id)
@@ -71,12 +68,10 @@ app.delete('/api/persons/:id', (req, res) => {
     res.status(204).end()
 })
 
-// Generate random ID
 const generateId = () => {
     return Math.floor(Math.random() * 1000000)
 }
 
-// Add new person
 app.post('/api/persons', (req, res) => {
     const body = req.body
 
@@ -103,10 +98,12 @@ app.post('/api/persons', (req, res) => {
     res.json(newPerson)
 })
 
-// Serve static frontend from Vite build (MUST BE LAST)
+// Serve static frontend from Vite build
 app.use(express.static(path.join(__dirname, 'dist')))
+
+// Fallback only for frontend routes (safe wildcard)
 app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
 // Start server
